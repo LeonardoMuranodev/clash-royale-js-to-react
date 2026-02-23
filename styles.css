@@ -86,7 +86,7 @@ main {
     }
 
     /* Contenedor invisible para agrupar los botones abajo */
-    .botones-container {
+    .buttons-container {
         margin-top: auto; 
         display: flex;
         gap: 10px;

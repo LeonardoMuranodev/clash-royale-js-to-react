@@ -55,19 +55,26 @@ function crear_carta(carta) {
             <p>Coste de elixir: ${carta.elixirCost}</p>
             <p>Rareza: ${rareza[carta.rarity]}</p>
             <img src="${carta.iconUrls.medium}" alt=""></img>
-            ${carta.iconUrls.evolutionMedium ? `<button type="button"class="evo-button">Ver Evo</button>` : ""}
-            ${carta.iconUrls.heroMedium ? `<button type="button" class="heroe-button">Ver Heroe</button>` : ""}
+            <div class="buttons-container">
+                ${carta.iconUrls.heroMedium ? `<button type="button" class="heroe-button" data-urlheroe="${carta.iconUrls.heroMedium}">Ver Heroe</button>` : ""}
+                ${carta.iconUrls.evolutionMedium ? `<button type="button"class="evo-button" data-urlevo="${carta.iconUrls.evolutionMedium}">Ver Evo</button>` : ""}
+            </div>
     `
 }
 
 const cardsContainer = document.getElementById("cards-container")
 cardsContainer.addEventListener("click", (event) => {
-    event.preventDefault()
-    if (event.target.classList.contains("evo-button")) {
-
+    let target = event.target
+    console.log("Clic en ", target)
+    if (target.classList.contains("evo-button")) {
+        let img = target.closest(".buttons-container").previousElementSibling
+        console.log(img)
+        img.src = target.dataset.urlevo
     }
-    if (event.target.classList.contains("heroe-button")) {
-
+    if (target.classList.contains("heroe-button")) {
+        let img = target.closest(".buttons-container").previousElementSibling
+        console.log(img)
+        img.src = target.dataset.urlheroe
     }
 })
 
