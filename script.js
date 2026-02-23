@@ -54,7 +54,7 @@ function crear_carta(carta) {
             <p>Nivel Maximo:  ${carta.maxLevel}</p>
             <p>Coste de elixir: ${carta.elixirCost}</p>
             <p>Rareza: ${rareza[carta.rarity]}</p>
-            <img src="${carta.iconUrls.medium}" alt=""></img>
+            <img src="${carta.iconUrls.medium}" data-urlnormal="${carta.iconUrls.medium}" alt=""></img>
             <div class="buttons-container">
                 ${carta.iconUrls.heroMedium ? `<button type="button" class="heroe-button" data-urlheroe="${carta.iconUrls.heroMedium}">Ver Heroe</button>` : ""}
                 ${carta.iconUrls.evolutionMedium ? `<button type="button"class="evo-button" data-urlevo="${carta.iconUrls.evolutionMedium}">Ver Evo</button>` : ""}
@@ -64,17 +64,26 @@ function crear_carta(carta) {
 
 const cardsContainer = document.getElementById("cards-container")
 cardsContainer.addEventListener("click", (event) => {
+
+    // Obtenemos el elemento donde se hizo click
     let target = event.target
-    console.log("Clic en ", target)
-    if (target.classList.contains("evo-button")) {
+
+    if (target.textContent == "Ver Evo") {
         let img = target.closest(".buttons-container").previousElementSibling
-        console.log(img)
         img.src = target.dataset.urlevo
+        target.textContent = "Volver"
+        target.previousElementSibling.textContent = "Ver Heroe" //Actualizar el otro boton
     }
-    if (target.classList.contains("heroe-button")) {
+    else if (target.textContent == "Ver Heroe") {
         let img = target.closest(".buttons-container").previousElementSibling
-        console.log(img)
         img.src = target.dataset.urlheroe
+        target.textContent = "Volver"
+        target.nextElementSibling.textContent = "Ver Evo"
+    }
+    else if (target.textContent == "Volver") {
+        let img = target.closest(".buttons-container").previousElementSibling
+        img.src = img.dataset.urlnormal
+        target.textContent = target.dataset.urlheroe ? "Ver Heroe" : "Ver Evo" //Actualizar el otro boton
     }
 })
 
