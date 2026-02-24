@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo React - Clash Royale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script defer type="text/babel">
+        const { useState, useEffect } = React;
+
+        // 1. Configuraciones de la API (Afuera de los componentes para que sea global)
+        const API_KEY_2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjA2MTkxZjg3LTA1NDktNGYxOC1iNTM2LTc5MDdlYWU5NTE2YiIsImlhdCI6MTc3MTYwMzI5Miwic3ViIjoiZGV2ZWxvcGVyLzg5ZGIxNzRiLTk4M2Mt MWQ0NS00ZDY2LTY1ZmM0OGY3YjA4NiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI0NS43OS4yMTguNzkiXSwidHlwZSI6ImNsaWVudCJ9XX0.Y6p-6p-ZQeEgZX3ATQBBs4Uz2myH8seCKMMrR2T2F05ihXoaLXcdC4sCJs_ChyOxwq076s_rSR01Qp6sjD5UDQ";
+
+        const API_CONFIG = {
+            BASE_URL: 'https://proxy.royaleapi.dev/v1/cards',
+            HEADERS: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + API_KEY_2
+            }
+        };
+
+        const rarezas = {
+            common: "Común",
+            rare: "Especial",
+            epic: "Epíca",
+            legendary: "Legendaria",
+            champion: "Campeon"
+        };
+
+        // 2. Nuestro Componente Carta
+        function CartaClashRoyale({ nombre, nivelMax, rareza, urlFoto, urlHeroe, urlEvo }) {
+            const [vistaActual, setVistaActual] = useState("normal");
+
+            let urlImagen = urlFoto;
+            if (vistaActual === "evo") {
+                urlImagen = urlEvo;
+            } else if (vistaActual === "heroe") {
+                urlImagen = urlHeroe;
+            }
+            
+            return (
+                <div className="card">
+                    <h3>{nombre}</h3>
+                    {/* Corregido: antes decía {nivel}, la prop es {nivelMax} */}
+                    <p>Nivel Máximo: {nivelMax}</p> 
+                    <p>Rareza: {rareza}</p>
+                    
+                    <img src={urlImagen} alt={nombre} />
+                    
+                    <div className="buttons-container">
+                        {/* Este boton existe solo si la url de la evo Existe*/}
+                        {urlEvo && (
+                            <button 
+                                className="evo-button"
+                                onClick={() => setVistaActual(vistaActual === "evo" ? "normal" : "evo")}
+                            >
+                                {vistaActual === "evo" ? "Volver" : "Ver Evo"}
+                            </button>
+                        )}
+
+                        {urlHeroe && (
+                            <button 
+                                className="heroe-button"
+                                onClick={() => setVistaActual(vistaActual === "heroe" ? "normal" : "heroe")}
+                            >
+                                {vistaActual === "heroe" ? "Volver" : "Ver Héroe"}
+                            </button>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        // 3. Componente Principal App
+        function App() {
+            // ESTADO: Acá guardamos las cartas. Empieza como un array vacío [].
+            const [cartas, setCartas] = useState([]);
+
+            // effect: Se ejecuta automáticamente cuando App aparece en pantalla
+            useEffect(() => {
+                async function obtenerCartas() {
+                    try {
+                        const response = await fetch(API_CONFIG.BASE_URL, {
+                            headers: API_CONFIG.HEADERS
+                        });
+                        const data = await response.json();
+                        
+                        // Actualizamos el estado con las primeras 35 cartas
+                        setCartas(data.items.slice(0, 35)); 
+                    } catch(error) {
+                        console.log(error);
+                    }
+                }
+                
+                obtenerCartas();
+            }, []); // El array vacío significa: "Ejecutá esto una sola vez"
+
+            return (
+                <>
+                    <header></header>
+                    <main>
+                        <h1> Enciclopedia de Clash Royale (React)</h1>
+                        <div id="cards-container">
+                            {/* Usamos map en vez de forEach. La prop 'key' (obligatoria en React) y la ruta correcta de iconUrls */}
+                            {cartas.map(carta => (
+                                <CartaClashRoyale 
+                                    key={carta.name} 
+                                    nombre={carta.name} 
+                                    nivelMax={carta.maxLevel} 
+                                    rareza={rarezas[carta.rarity]} 
+                                    urlFoto={carta.iconUrls.medium} 
+                                    urlHeroe={carta.iconUrls.heroMedium || ""} 
+                                    urlEvo={carta.iconUrls.evolutionMedium || ""}
+                                />
+                            ))}
+                        </div>
+                    </main>
+                    <footer></footer>
+                </>
+            );
+        }
+
+        // 4. Renderizado
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</head>
+<body>
+    <div id="root">
+    </div>
+</body>
+</html>
