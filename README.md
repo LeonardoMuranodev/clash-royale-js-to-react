@@ -52,8 +52,8 @@ Dado que ambas versiones utilizan módulos de JavaScript o peticiones HTTP que r
 ---
 
 ## 👨‍🏫 Instructores
-**Leonardo Murano**
-**Luis Mazo**
-**Jennifer Goldfeld**
+ - **Leonardo Murano**
+ - **Luis Mazo**
+ - **Jennifer Goldfeld**
 
 *Desarrollado para la Municipalidad de Tres de Febrero (Tecno3F).*
