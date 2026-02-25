@@ -1,128 +1,130 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont;
-    
-    /* Fondos */
-    --bg-color-primary: #f8fafc;
-    --bg-color-secundary: #ffffff;
-    
-    /* Textos */
-    --text-title: #1e293b;
-    --text-muted: #475569;
-    --text-btn-light: #ffffff;
-    --text-btn-dark: #451a03; /* Color oscuro para leer bien sobre el fondo amarillo */
-    
-    /* UI: Bordes y Sombras */
-    --border-card: #e2e8f0;
-    --shadow-main: rgba(0, 0, 0, 0.1);
-    --shadow-soft: rgba(0, 0, 0, 0.06);
-    --shadow-img: rgba(0, 0, 0, 0.2);
-    
-    /* Colores Especiales Clash Royale */
-    --color-evo: #b24bf3; /* Violeta oscuro mágico */
-    --color-evo-hover: #9b3ce0;
-    --color-hero: #fbbf24; /* Amarillo Dorado de Campeón */
-    --color-hero-hover: #f59e0b;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont;
+
+  /* Fondos */
+  --bg-color-primary: #f8fafc;
+  --bg-color-secundary: #ffffff;
+
+  /* Textos */
+  --text-title: #1e293b;
+  --text-muted: #475569;
+  --text-btn-light: #ffffff;
+  --text-btn-dark: #451a03; /* Color oscuro para leer bien sobre el fondo amarillo */
+
+  /* UI: Bordes y Sombras */
+  --border-card: #e2e8f0;
+  --shadow-main: rgba(0, 0, 0, 0.1);
+  --shadow-soft: rgba(0, 0, 0, 0.06);
+  --shadow-img: rgba(0, 0, 0, 0.2);
+
+  /* Colores Especiales Clash Royale */
+  --color-evo: #b24bf3; /* Violeta oscuro mágico */
+  --color-evo-hover: #9b3ce0;
+  --color-hero: #fbbf24; /* Amarillo Dorado de Campeón */
+  --color-hero-hover: #f59e0b;
 }
 
 body {
-    background-color: var(--bg-color-primary);
+  background-color: var(--bg-color-primary);
 }
 
 h1 {
-    padding: 1.3rem;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
+  padding: 1.3rem;
 }
 
 #cards-container {
-    max-width: 1100px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    align-self: center;
-    gap: 10px;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  align-self: center;
+  gap: 10px;
+  margin: 1rem auto;
+
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+
+  /* El diseño de la tarjeta */
+  background-color: var(--bg-color-secundary);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 6px -1px var(--shadow-main),
+    0 2px 4px -1px var(--shadow-soft);
+  border: 1px solid var(--border-card);
+  transition: transform 0.2s ease-in-out;
+
+  /* Elementos dentro de la tarjeta */
+  h3 {
+    color: var(--text-title);
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  p {
+    margin: 2px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  img {
+    width: 100%;
+    max-width: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 4px var(--shadow-img));
+  }
+
+  /* Contenedor invisible para agrupar los botones abajo */
+  .buttons-container {
+    margin-top: auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem;
-    
-    /* El diseño de la tarjeta */
-    background-color: var(--bg-color-secundary);
-    border-radius: 16px;
-    box-shadow: 0 4px 6px -1px var(--shadow-main), 0 2px 4px -1px var(--shadow-soft);
-    border: 1px solid var(--border-card);
-    transition: transform 0.2s ease-in-out;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    padding-top: 1rem;
+  }
 
-    /* Elementos dentro de la tarjeta */
-    h3 {
-        color: var(--text-title);
-        margin-bottom: 0.5rem;
-        font-size: 1.5rem;
-    }
+  button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
 
-    p {
-        margin: 2px 0;
-        color: var(--text-muted);
-        font-size: 0.9rem;
-    }
+  .evo-button {
+    background-color: var(--color-evo);
+    color: var(--text-btn-light);
+  }
 
-    img {
-        width: 100%;
-        max-width: 200px;
-        object-fit: contain;
-        margin-bottom: 1rem;
-        filter: drop-shadow(0 4px 4px var(--shadow-img));
-    }
+  .evo-button:hover {
+    background-color: var(--color-evo-hover);
+  }
 
-    /* Contenedor invisible para agrupar los botones abajo */
-    .buttons-container {
-        margin-top: auto; 
-        display: flex;
-        gap: 10px;
-        width: 100%;
-        justify-content: center;
-        padding-top: 1rem;
-    }
+  .heroe-button {
+    background-color: var(--color-hero);
+    color: var(--text-btn-dark);
+  }
 
-    button {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .evo-button {
-        background-color: var(--color-evo);
-        color: var(--text-btn-light);
-    }
-    
-    .evo-button:hover {
-        background-color: var(--color-evo-hover);
-    }
-
-    .heroe-button {
-        background-color: var(--color-hero);
-        color: var(--text-btn-dark);
-    }
-    
-    .heroe-button:hover {
-        background-color: var(--color-hero-hover);
-    }
+  .heroe-button:hover {
+    background-color: var(--color-hero-hover);
+  }
 }
 
 .card:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
