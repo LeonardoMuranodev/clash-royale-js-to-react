@@ -1,0 +1,9 @@
+{
+  "rarezas": {
+    "common": "Común",
+    "rare": "Especial",
+    "epic": "Épica",
+    "legendary": "Legendaria",
+    "champion": "Campeón"
+  }
+}
