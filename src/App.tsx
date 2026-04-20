@@ -5,12 +5,13 @@ import {rarezas} from "./data.json"
 import { obtenerCartas } from "./utils/api";
 import CustomFooter from "./components/CustomFooter";
 import CustomHeader from "./components/CustomHeader";
-
+import type { Carta } from "./types/clash"
 
 function App() {
 
-   // ESTADO: Acá guardamos las cartas. Empieza como un array vacío [].
-    const [cartas, setCartas] = useState([]);
+    // ESTADO: Acá guardamos las cartas. Empieza como un array vacío [].
+    const [cartas, setCartas] = useState<Carta[]>([]);
+    // const [cartas, setCartas] = useState<Array<Carta>>([]);
 
     const totalCartas = cartas?.length
     const totalEvo = cartas?.filter(c => c.iconUrls.evolutionMedium).length
