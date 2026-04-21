@@ -1,6 +1,13 @@
 import SelectorCantidad from "./SelectorCantidad"
 
-function CustomHeader({totalCartas, totalEvo, totalHeroe, onCantCardsChange}) {
+interface CustomHeaderProps {
+    totalCartas: number,
+    totalEvo: number,
+    totalHeroe: number,
+    onCantCardsChange: (limite: number) => void
+}
+
+function CustomHeader({totalCartas, totalEvo, totalHeroe, onCantCardsChange}: CustomHeaderProps) {
   
     return (
     <header>

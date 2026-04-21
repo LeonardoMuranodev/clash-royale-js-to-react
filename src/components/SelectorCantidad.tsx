@@ -1,15 +1,19 @@
 import { useState } from 'react'
 
-function SelectorCantidad({onCantCardsChange}) {
+interface SelectorProps {
+    onCantCardsChange: (limite: number) => void;
+}
+
+function SelectorCantidad({onCantCardsChange}: SelectorProps) {
   const [cantidad, setCantidad] = useState(35) // Valor inicial
 
   console.log(cantidad)
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCantidad(Number(e.target.value))
   }
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
     onCantCardsChange(cantidad)
   }

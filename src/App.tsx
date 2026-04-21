@@ -34,7 +34,7 @@ function App() {
 
     console.log(totalCartas)
     
-    const handleCantCardsChange = (limite)  => {
+    const handleCantCardsChange = (limite: number)  => {
         const fetchData = async () => {
             try {
                 const data = await obtenerCartas(limite);

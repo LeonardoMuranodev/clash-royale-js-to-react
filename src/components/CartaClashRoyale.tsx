@@ -1,9 +1,21 @@
 import { useState } from "react";
 
-function CartaClashRoyale({ nombre, nivelMax, rareza, urlFoto, urlHeroe, urlEvo }) {
-    const [vistaActual, setVistaActual] = useState("normal");
+interface CartaProps {
+    nombre: string,
+    nivelMax: number,
+    rareza: string,
+    urlFoto: string,
+    urlHeroe?: string,
+    urlEvo?: string
+}
 
-    let urlImagen = urlFoto;
+type Vista = "normal" | "evo" | "heroe";
+type urlImagen = string | undefined
+
+function CartaClashRoyale({ nombre, nivelMax, rareza, urlFoto, urlHeroe, urlEvo }: CartaProps) {
+    const [vistaActual, setVistaActual] = useState<Vista>("normal");
+
+    let urlImagen: urlImagen = urlFoto;
     if (vistaActual === "evo") {
         urlImagen = urlEvo;
     } else if (vistaActual === "heroe") {
